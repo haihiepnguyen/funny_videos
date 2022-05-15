@@ -46,8 +46,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_160745) do
 
   create_table "videos", force: :cascade do |t|
     t.string "url"
-    t.integer "like"
-    t.integer "dislike"
+    t.integer "like", default: 0
+    t.integer "dislike", default: 0
     t.integer "status", default: 0
     t.bigint "user_id"
     t.datetime "created_at", null: false

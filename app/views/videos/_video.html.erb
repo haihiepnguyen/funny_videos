@@ -9,16 +9,18 @@
         <div>
           <p>Shared by: <%= video.youtube_data["shared_email"] || video.youtube_data["author_name"] %></p>
           <div class="box-reacted flex items-center">
-            <div class="like">
-              10
+            <div class="like flex">
+              <%= video.like %>
+              <%= raw(like_voted_svg) %>
             </div>
-            <div class="dislike">
-              5
+            <div class="dislike flex px-3">
+              <%= video.dislike %>
+              <%= raw(dislike_voted_svg) %>
             </div>
           </div>
         </div>
         <div class="box-react flex items-center">
-          <% current_react = @user_reacts.find_by(video_id: video.id) %>
+          <% current_react = @user_reacts&.find_by(video_id: video.id) %>
           <% if current_react.present? %>
             <div class="undo px-3">
               <%= form_for(video, url: undo_react_video_path(video), method: :post, remote: true) do |f| %>
