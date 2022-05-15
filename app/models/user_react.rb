@@ -1,0 +1,2 @@
+class UserReact < ApplicationRecord
+end
