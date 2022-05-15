@@ -4,6 +4,7 @@ class Video < ApplicationRecord
   has_many :user_reacts
   has_many :user_videos
   has_many :shared_users, through: :user_videos
+  validates_presence_of :url
 
   before_save :add_extra_data
 

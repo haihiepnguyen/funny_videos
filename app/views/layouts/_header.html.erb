@@ -19,11 +19,11 @@
       <%= form_for(User.new, as: :user, url: session_path(:user), html: {class: "ml-2"}) do |f| %>
         <div class="flex items-center">
           <div class="field ml-2">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", id: "login-email" %>
           </div>
 
           <div class="field ml-2">
-            <%= f.password_field :password, autocomplete: "current-password" %>
+            <%= f.password_field :password, autocomplete: "current-password", id: "login-password" %>
           </div>
 
           <div class="actions ml-2">

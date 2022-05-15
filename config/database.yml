@@ -24,9 +24,9 @@ default: &default
 development:
   <<: *default
   database: fun_videos_development
-  username: haihiepnguyen
-  password: 2195
-  host: localhost
+  username: <%= ENV.fetch("DATABASE_USER") { "haihiepnguyen" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "haihiepnguyen" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -84,5 +84,5 @@ test:
 production:
   <<: *default
   database: fun_videos_production
-  username: fun_videos
-  password: <%= ENV["FUN_VIDEOS_DATABASE_PASSWORD"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
