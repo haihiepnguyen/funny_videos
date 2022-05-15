@@ -6,7 +6,7 @@ class VideosController < ApplicationController
   # GET /videos or /videos.json
   def index
     @pagy, @videos = pagy(
-      Video.all,
+      Video.all.order(created_at: :desc),
       items: 10
     )
     @user_reacts = UserReact.where(user: current_user, video_id: @videos.pluck(:id))
@@ -66,13 +66,15 @@ class VideosController < ApplicationController
   def like
     ReactVideoJob.perform_now(current_user.id, params[:id], "like")
     respond_to do |format|
-      format.json { render json: { code: 0, status: "success" } }
+      format.html { redirect_to root_path, notice: "Liked." }
+      format.html { }
     end
   end
 
   def dislike
     ReactVideoJob.perform_now(current_user.id, params[:id], "dislike")
     respond_to do |format|
+      format.html { redirect_to root_path, notice: "Disliked." }
       format.json { render json: { code: 0, status: "success" } }
     end
   end
@@ -86,6 +88,7 @@ class VideosController < ApplicationController
       json_response = { code: 1, status: "failure", message: "cannot find react" }
     end
     respond_to do |format|
+      format.html { redirect_to root_path, notice: "Undo." }
       format.json { render json: json_response }
     end
   end

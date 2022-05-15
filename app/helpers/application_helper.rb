@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def youtube_embed(youtube_url)
-    %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ youtube_id(youtube_url) }" frameborder="0" allowfullscreen></iframe>}
+    %Q{<iframe title="YouTube video player" width="640" height="390" src="https://www.youtube.com/embed/#{ youtube_id(youtube_url) }" frameborder="0" allowfullscreen></iframe>}
   end
 
   def like_svg

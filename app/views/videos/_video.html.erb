@@ -20,34 +20,7 @@
           </div>
         </div>
         <div class="box-react flex items-center">
-          <% current_react = @user_reacts&.find_by(video_id: video.id) %>
-          <% if current_react.present? %>
-            <div class="undo px-3">
-              <%= form_for(video, url: undo_react_video_path(video), method: :post, remote: true) do |f| %>
-                <div class="flex">
-                  <%= f.button raw("#{eval("#{current_react.kind}_voted_svg")}"),
-                               type: "submit"
-                  %>
-                  <span class="ml-3"><%= current_react.kind == 'like' ? "(voted up)" : "(voted down)" %></span>
-                </div>
-              <% end %>
-            </div>
-          <% else %>
-            <div class="like px-3">
-              <%= form_for(video, url: like_video_path(video), method: :post, remote: true) do |f| %>
-                <%= f.button raw(like_svg),
-                             type: "submit"
-                %>
-              <% end %>
-            </div>
-            <div class="dislike px-3">
-              <%= form_for(video, url: dislike_video_path(video), method: :post, remote: true) do |f| %>
-                <%= f.button raw(dislike_svg),
-                             type: "submit"
-                %>
-              <% end %>
-            </div>
-          <% end %>
+          <%= render partial: "react", locals: { video: video } %>
         </div>
       </div>
     </div>
