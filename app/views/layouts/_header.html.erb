@@ -2,13 +2,21 @@
   <div class="">
     LOGO
   </div>
-  <div class="">
+  <div class="flex items-center">
     <% if current_user.present? %>
-      <%= "Hello, #{current_user.email}" %>
-      <%= link_to "Share a movie", new_video_path %>
-      <%= button_to "Log out", :destroy_session_users, method: :delete, 'data-no-turbolink' => true %>
+      <p class=""><%= "Hello, #{current_user.email}" %></p>
+      <%= link_to "Share a movie",
+                  new_video_path,
+                  class: "ml-2 rounded-lg py-2 px-3 bg-blue-600 text-white block"
+      %>
+      <%= button_to "Log out",
+                    :destroy_session_users,
+                    class: "ml-2 rounded-lg py-2 px-3 bg-gray-600 text-white block",
+                    method: :delete,
+                    'data-no-turbolink' => true
+      %>
     <% else %>
-      <%= form_for(User.new, as: :user, url: session_path(:user)) do |f| %>
+      <%= form_for(User.new, as: :user, url: session_path(:user), html: {class: "ml-2"}) do |f| %>
         <div class="flex items-center">
           <div class="field ml-2">
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

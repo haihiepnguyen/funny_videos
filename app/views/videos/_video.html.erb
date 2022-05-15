@@ -1,8 +1,56 @@
 <div id="<%= dom_id video %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Url:</strong>
-    <%= video.url %>
-  </p>
+  <div class="flex justify-center my-5">
+    <div class="youtube-frame">
+      <%= raw(youtube_embed(video.url)) %>
+    </div>
+    <div class="video-detail px-3">
+      <p><%= video.title %></p>
+      <div class="flex items-center justify-between">
+        <div>
+          <p>Shared by: <%= video.youtube_data["shared_email"] || video.youtube_data["author_name"] %></p>
+          <div class="box-reacted flex items-center">
+            <div class="like">
+              10
+            </div>
+            <div class="dislike">
+              5
+            </div>
+          </div>
+        </div>
+        <div class="box-react flex items-center">
+          <% current_react = @user_reacts.find_by(video_id: video.id) %>
+          <% if current_react.present? %>
+            <div class="undo px-3">
+              <%= form_for(video, url: undo_react_video_path(video), method: :post, remote: true) do |f| %>
+                <div class="flex">
+                  <%= f.button raw("#{eval("#{current_react.kind}_voted_svg")}"),
+                               type: "submit"
+                  %>
+                  <span class="ml-3"><%= current_react.kind == 'like' ? "(voted up)" : "(voted down)" %></span>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="like px-3">
+              <%= form_for(video, url: like_video_path(video), method: :post, remote: true) do |f| %>
+                <%= f.button raw(like_svg),
+                             type: "submit"
+                %>
+              <% end %>
+            </div>
+            <div class="dislike px-3">
+              <%= form_for(video, url: dislike_video_path(video), method: :post, remote: true) do |f| %>
+                <%= f.button raw(dislike_svg),
+                             type: "submit"
+                %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <%# if action_name != "show" %>
     <%#= link_to "Show this video", video, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
