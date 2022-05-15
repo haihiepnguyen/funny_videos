@@ -14,8 +14,11 @@ Things you may want to cover:
 * Database creation
 
 * Database initialization
+I setup a list for demo. Please run command below
+rails db:seed
 
 * How to run the test suite
+bundle exec rspec
 
 * Services (job queues, cache servers, search engines, etc.)
 
